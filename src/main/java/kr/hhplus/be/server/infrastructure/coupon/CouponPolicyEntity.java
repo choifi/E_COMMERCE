@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.infrastructure.coupon;
 
+import kr.hhplus.be.server.domain.coupon.CouponPolicy;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -62,9 +64,9 @@ public class CouponPolicyEntity {
     public LocalDateTime getUpdatedTime() { return updatedTime; }
     public void setUpdatedTime(LocalDateTime updatedTime) { this.updatedTime = updatedTime; }
     
-    public kr.hhplus.be.server.domain.coupon.CouponPolicy toDomain() {
-        kr.hhplus.be.server.domain.coupon.CouponPolicy policy = 
-            new kr.hhplus.be.server.domain.coupon.CouponPolicy(name, discountRate, validDays, maxCount, startDate, endDate);
+    public CouponPolicy toDomain() {
+        CouponPolicy policy = 
+            new CouponPolicy(name, discountRate, validDays, maxCount, startDate, endDate);
         
         policy.setPolicyId(policyId);
         policy.setIssuedCount(issuedCount);
@@ -74,7 +76,7 @@ public class CouponPolicyEntity {
         return policy;
     }
     
-    public static CouponPolicyEntity fromDomain(kr.hhplus.be.server.domain.coupon.CouponPolicy policy) {
+    public static CouponPolicyEntity fromDomain(CouponPolicy policy) {
         CouponPolicyEntity entity = new CouponPolicyEntity();
         entity.setPolicyId(policy.getPolicyId());
         entity.setName(policy.getName());

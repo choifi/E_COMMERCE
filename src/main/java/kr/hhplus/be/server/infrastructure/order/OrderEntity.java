@@ -1,5 +1,8 @@
 package kr.hhplus.be.server.infrastructure.order;
 
+import kr.hhplus.be.server.domain.order.Order;
+import kr.hhplus.be.server.domain.order.OrderStatus;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -30,7 +33,7 @@ public class OrderEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private kr.hhplus.be.server.domain.order.OrderStatus status;
+    private OrderStatus status;
 
     @Column(name = "created_time", nullable = false)
     private LocalDateTime createdTime;
@@ -59,8 +62,8 @@ public class OrderEntity {
     public int getAmount() { return amount; }
     public void setAmount(int amount) { this.amount = amount; }
     
-    public kr.hhplus.be.server.domain.order.OrderStatus getStatus() { return status; }
-    public void setStatus(kr.hhplus.be.server.domain.order.OrderStatus status) { this.status = status; }
+    public OrderStatus getStatus() { return status; }
+    public void setStatus(OrderStatus status) { this.status = status; }
     
     public LocalDateTime getCreatedTime() { return createdTime; }
     public void setCreatedTime(LocalDateTime createdTime) { this.createdTime = createdTime; }
@@ -72,9 +75,9 @@ public class OrderEntity {
     public void setOrderItems(List<OrderItemEntity> orderItems) { this.orderItems = orderItems; }
 
     // 도메인 변환 메서드
-    public kr.hhplus.be.server.domain.order.Order toDomain() {
-        kr.hhplus.be.server.domain.order.Order order = 
-            new kr.hhplus.be.server.domain.order.Order(userId, 
+    public Order toDomain() {
+        Order order = 
+            new Order(userId, 
                 orderItems.stream()
                     .map(OrderItemEntity::toDomain)
                     .collect(Collectors.toList()));
@@ -91,7 +94,7 @@ public class OrderEntity {
     }
 
     // 도메인 객체에서 변환
-    public static OrderEntity fromDomain(kr.hhplus.be.server.domain.order.Order order) {
+    public static OrderEntity fromDomain(Order order) {
         OrderEntity entity = new OrderEntity();
         entity.setOrderId(order.getOrderId());
         entity.setUserId(order.getUserId());

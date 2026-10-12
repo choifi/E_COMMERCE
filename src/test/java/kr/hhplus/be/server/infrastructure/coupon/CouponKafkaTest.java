@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class CouponKafkaTest {
@@ -58,10 +61,10 @@ class CouponKafkaTest {
         }
 
         // 3번의 메시지 발행이 호출 확인
-        verify(messageClient, org.mockito.Mockito.times(3)).send(
+        verify(messageClient, times(3)).send(
             eq(Topics.COUPON_ISSUE_REQUEST), 
-            org.mockito.ArgumentMatchers.anyString(), 
-            org.mockito.ArgumentMatchers.any(CouponIssueMessage.class)
+            anyString(), 
+            any(CouponIssueMessage.class)
         );
     }
 

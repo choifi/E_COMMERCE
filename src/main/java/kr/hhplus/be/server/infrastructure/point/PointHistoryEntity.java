@@ -1,5 +1,8 @@
 package kr.hhplus.be.server.infrastructure.point;
 
+import kr.hhplus.be.server.domain.point.PointHistory;
+import kr.hhplus.be.server.domain.point.PointHistoryType;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -24,7 +27,7 @@ public class PointHistoryEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private kr.hhplus.be.server.domain.point.PointHistoryType type;
+    private PointHistoryType type;
 
     @Column(name = "created_time", nullable = false)
     private LocalDateTime createdTime;
@@ -47,8 +50,8 @@ public class PointHistoryEntity {
     public int getPointAmount() { return pointAmount; }
     public void setPointAmount(int pointAmount) { this.pointAmount = pointAmount; }
     
-    public kr.hhplus.be.server.domain.point.PointHistoryType getType() { return type; }
-    public void setType(kr.hhplus.be.server.domain.point.PointHistoryType type) { this.type = type; }
+    public PointHistoryType getType() { return type; }
+    public void setType(PointHistoryType type) { this.type = type; }
     
     public LocalDateTime getCreatedTime() { return createdTime; }
     public void setCreatedTime(LocalDateTime createdTime) { this.createdTime = createdTime; }
@@ -57,9 +60,9 @@ public class PointHistoryEntity {
     public void setUpdatedTime(LocalDateTime updatedTime) { this.updatedTime = updatedTime; }
 
     // 도메인 변환 메서드
-    public kr.hhplus.be.server.domain.point.PointHistory toDomain() {
-        kr.hhplus.be.server.domain.point.PointHistory history = 
-            new kr.hhplus.be.server.domain.point.PointHistory(userId, pointId, pointAmount, type);
+    public PointHistory toDomain() {
+        PointHistory history = 
+            new PointHistory(userId, pointId, pointAmount, type);
         
         history.setHistoryId(historyId);
         history.setCreatedTime(createdTime);
@@ -69,7 +72,7 @@ public class PointHistoryEntity {
     }
 
     // 도메인 객체에서 변환
-    public static PointHistoryEntity fromDomain(kr.hhplus.be.server.domain.point.PointHistory history) {
+    public static PointHistoryEntity fromDomain(PointHistory history) {
         PointHistoryEntity entity = new PointHistoryEntity();
         entity.setHistoryId(history.getHistoryId());
         entity.setUserId(history.getUserId());

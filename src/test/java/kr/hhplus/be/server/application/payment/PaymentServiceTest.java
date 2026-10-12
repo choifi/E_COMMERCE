@@ -15,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -52,7 +55,7 @@ class PaymentServiceTest {
         policy.setPolicyId(policyId);
 
         when(couponService.getCouponById(couponId)).thenReturn(coupon);
-        when(couponPolicyRepository.findById(policyId)).thenReturn(java.util.Optional.of(policy));
+        when(couponPolicyRepository.findById(policyId)).thenReturn(Optional.of(policy));
 
         int result = paymentService.calculateDiscount(totalAmount, couponId);
 
@@ -66,7 +69,7 @@ class PaymentServiceTest {
         int orderId = 1;
         int couponId = 1;
         OrderItem orderItem = new OrderItem(1, 2, 500); // productId=1, quantity=2, unitPrice=500
-        Order order = new Order(1, java.util.List.of(orderItem));
+        Order order = new Order(1, List.of(orderItem));
         order.setOrderId(orderId);
 
         Payment payment = new Payment(orderId, 1000, 100, couponId);
@@ -85,7 +88,7 @@ class PaymentServiceTest {
     void processPayment_쿠폰없음_성공() {
         int orderId = 1;
         OrderItem orderItem = new OrderItem(1, 1, 1000); // productId=1, quantity=1, unitPrice=1000
-        Order order = new Order(1, java.util.List.of(orderItem));
+        Order order = new Order(1, List.of(orderItem));
         order.setOrderId(orderId);
 
         Payment payment = new Payment(orderId, 1000, 0, null);

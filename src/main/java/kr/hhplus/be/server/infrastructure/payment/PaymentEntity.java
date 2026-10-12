@@ -1,5 +1,8 @@
 package kr.hhplus.be.server.infrastructure.payment;
 
+import kr.hhplus.be.server.domain.payment.Payment;
+import kr.hhplus.be.server.domain.payment.PaymentStatus;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -30,7 +33,7 @@ public class PaymentEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private kr.hhplus.be.server.domain.payment.PaymentStatus status;
+    private PaymentStatus status;
 
     @Column(name = "created_time", nullable = false)
     private LocalDateTime createdTime;
@@ -59,8 +62,8 @@ public class PaymentEntity {
     public int getAmount() { return amount; }
     public void setAmount(int amount) { this.amount = amount; }
     
-    public kr.hhplus.be.server.domain.payment.PaymentStatus getStatus() { return status; }
-    public void setStatus(kr.hhplus.be.server.domain.payment.PaymentStatus status) { this.status = status; }
+    public PaymentStatus getStatus() { return status; }
+    public void setStatus(PaymentStatus status) { this.status = status; }
     
     public LocalDateTime getCreatedTime() { return createdTime; }
     public void setCreatedTime(LocalDateTime createdTime) { this.createdTime = createdTime; }
@@ -69,9 +72,9 @@ public class PaymentEntity {
     public void setUpdatedTime(LocalDateTime updatedTime) { this.updatedTime = updatedTime; }
 
     // 도메인 변환 메서드
-    public kr.hhplus.be.server.domain.payment.Payment toDomain() {
-        kr.hhplus.be.server.domain.payment.Payment payment = 
-            new kr.hhplus.be.server.domain.payment.Payment(orderId, totalAmount, discountAmount, couponId);
+    public Payment toDomain() {
+        Payment payment = 
+            new Payment(orderId, totalAmount, discountAmount, couponId);
         
         payment.setPaymentId(paymentId);
         payment.setStatus(status);
@@ -82,7 +85,7 @@ public class PaymentEntity {
     }
 
     // 도메인 객체에서 변환
-    public static PaymentEntity fromDomain(kr.hhplus.be.server.domain.payment.Payment payment) {
+    public static PaymentEntity fromDomain(Payment payment) {
         PaymentEntity entity = new PaymentEntity();
         entity.setPaymentId(payment.getPaymentId());
         entity.setOrderId(payment.getOrderId());

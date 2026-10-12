@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.redisson.api.RSet;
 import org.redisson.api.RedissonClient;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -44,7 +45,7 @@ class CouponSchedulerTest {
     @BeforeEach
     void setUp() {
         testPolicy = new CouponPolicy("테스트", 10, 30, 100, 
-            java.time.LocalDateTime.now(), java.time.LocalDateTime.now().plusDays(30));
+            LocalDateTime.now(), LocalDateTime.now().plusDays(30));
         testPolicy.setPolicyId(1);
         testPolicy.setIssuedCount(50);
         
