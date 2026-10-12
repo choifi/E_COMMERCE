@@ -16,6 +16,7 @@ import org.redisson.api.RScoredSortedSet;
 import org.redisson.api.RSet;
 import org.redisson.api.RedissonClient;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -55,7 +56,7 @@ class CouponServiceTest {
     @BeforeEach
     void setUp() {
         testPolicy = new CouponPolicy("테스트", 10, 30, 100, 
-            java.time.LocalDateTime.now(), java.time.LocalDateTime.now().plusDays(30));
+            LocalDateTime.now(), LocalDateTime.now().plusDays(30));
         testPolicy.setPolicyId(1);
         testPolicy.setIssuedCount(50);
     }
@@ -115,7 +116,7 @@ class CouponServiceTest {
         coupon.setCouponId(1);
         
         CouponPolicy policy = new CouponPolicy("테스트", 10, 30, 100, 
-            java.time.LocalDateTime.now(), java.time.LocalDateTime.now().plusDays(30));
+            LocalDateTime.now(), LocalDateTime.now().plusDays(30));
         policy.setIssuedCount(0);
 
         when(couponPolicyRepository.findById(policyId)).thenReturn(Optional.of(policy));

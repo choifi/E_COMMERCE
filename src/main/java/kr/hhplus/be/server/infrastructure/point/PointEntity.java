@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.infrastructure.point;
 
+import kr.hhplus.be.server.domain.point.Point;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -51,9 +53,9 @@ public class PointEntity {
     public void setUpdatedTime(LocalDateTime updatedTime) { this.updatedTime = updatedTime; }
 
     // 도메인 객체로 변환
-    public kr.hhplus.be.server.domain.point.Point toDomain() {
-        kr.hhplus.be.server.domain.point.Point point = 
-            new kr.hhplus.be.server.domain.point.Point(userId, currentPoint);
+    public Point toDomain() {
+        Point point = 
+            new Point(userId, currentPoint);
         
         point.setPointId(pointId);
         point.setVersion(version);
@@ -64,7 +66,7 @@ public class PointEntity {
     }
 
     // 도메인 객체에서 변환
-    public static PointEntity fromDomain(kr.hhplus.be.server.domain.point.Point point) {
+    public static PointEntity fromDomain(Point point) {
         PointEntity entity = new PointEntity();
         entity.setPointId(point.getPointId());
         entity.setUserId(point.getUserId());

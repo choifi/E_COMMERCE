@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.infrastructure.product;
 
+import kr.hhplus.be.server.domain.product.Product;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -50,9 +52,9 @@ public class ProductEntity {
     public void setUpdatedTime(LocalDateTime updatedTime) { this.updatedTime = updatedTime; }
     
     // 도메인 객체로 변환
-    public kr.hhplus.be.server.domain.product.Product toDomain() {
-        kr.hhplus.be.server.domain.product.Product product = 
-            new kr.hhplus.be.server.domain.product.Product(name, price, stock);
+    public Product toDomain() {
+        Product product = 
+            new Product(name, price, stock);
         product.setProductId(productId);
         product.setCreatedTime(createdTime);
         product.setUpdatedTime(updatedTime);
@@ -60,7 +62,7 @@ public class ProductEntity {
     }
     
     // 도메인 객체에서 변환
-    public static ProductEntity fromDomain(kr.hhplus.be.server.domain.product.Product product) {
+    public static ProductEntity fromDomain(Product product) {
         ProductEntity entity = new ProductEntity();
         entity.setProductId(product.getProductId());
         entity.setName(product.getName());

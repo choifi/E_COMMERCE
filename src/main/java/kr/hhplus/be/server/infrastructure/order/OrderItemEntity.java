@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.infrastructure.order;
 
+import kr.hhplus.be.server.domain.order.OrderItem;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -58,9 +60,9 @@ public class OrderItemEntity {
     public void setUpdatedTime(LocalDateTime updatedTime) { this.updatedTime = updatedTime; }
 
     // 도메인 변환 메서드
-    public kr.hhplus.be.server.domain.order.OrderItem toDomain() {
-        kr.hhplus.be.server.domain.order.OrderItem orderItem = 
-            new kr.hhplus.be.server.domain.order.OrderItem(productId, quantity, unitPrice);
+    public OrderItem toDomain() {
+        OrderItem orderItem = 
+            new OrderItem(productId, quantity, unitPrice);
         
         orderItem.setOrderItemId(orderItemId);
         orderItem.setOrderId(order != null ? order.getOrderId() : 0);
@@ -71,7 +73,7 @@ public class OrderItemEntity {
     }
 
     // 도메인 객체에서 변환
-    public static OrderItemEntity fromDomain(kr.hhplus.be.server.domain.order.OrderItem orderItem) {
+    public static OrderItemEntity fromDomain(OrderItem orderItem) {
         OrderItemEntity entity = new OrderItemEntity();
         entity.setOrderItemId(orderItem.getOrderItemId());
         entity.setProductId(orderItem.getProductId());

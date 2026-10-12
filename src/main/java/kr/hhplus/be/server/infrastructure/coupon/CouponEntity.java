@@ -1,5 +1,8 @@
 package kr.hhplus.be.server.infrastructure.coupon;
 
+import kr.hhplus.be.server.domain.coupon.Coupon;
+import kr.hhplus.be.server.domain.coupon.CouponStatus;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -20,7 +23,7 @@ public class CouponEntity {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private kr.hhplus.be.server.domain.coupon.CouponStatus status;
+    private CouponStatus status;
     
     @Column(name = "created_time", nullable = false)
     private LocalDateTime createdTime;
@@ -33,20 +36,20 @@ public class CouponEntity {
     public void setUserId(int userId) { this.userId = userId; }
     public int getPolicyId() { return policyId; }
     public void setPolicyId(int policyId) { this.policyId = policyId; }
-    public kr.hhplus.be.server.domain.coupon.CouponStatus getStatus() { return status; }
-    public void setStatus(kr.hhplus.be.server.domain.coupon.CouponStatus status) { this.status = status; }
+    public CouponStatus getStatus() { return status; }
+    public void setStatus(CouponStatus status) { this.status = status; }
     public LocalDateTime getCreatedTime() { return createdTime; }
     public void setCreatedTime(LocalDateTime createdTime) { this.createdTime = createdTime; }
     
-    public kr.hhplus.be.server.domain.coupon.Coupon toDomain() {
-        kr.hhplus.be.server.domain.coupon.Coupon coupon = new kr.hhplus.be.server.domain.coupon.Coupon(userId, policyId);
+    public Coupon toDomain() {
+        Coupon coupon = new Coupon(userId, policyId);
         coupon.setCouponId(couponId);
         coupon.setStatus(status);
         coupon.setCreatedTime(createdTime);
         return coupon;
     }
     
-    public static CouponEntity fromDomain(kr.hhplus.be.server.domain.coupon.Coupon coupon) {
+    public static CouponEntity fromDomain(Coupon coupon) {
         CouponEntity entity = new CouponEntity();
         entity.setCouponId(coupon.getCouponId());
         entity.setUserId(coupon.getUserId());
